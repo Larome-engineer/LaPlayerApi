@@ -1,6 +1,6 @@
 import hashlib
 from laplayer_api.models.models import Users
-from laplayer_api.repository.user_reposotiry import add_user, get_token
+from laplayer_api.repository.user_reposotiry import add_user, get_token, get_token_by_username
 
 
 def create_user(name, email, password):
@@ -16,6 +16,14 @@ def check_token(api_token):
         return None
     else:
         return "SUCCESS"
+
+
+def token_by_username(username):
+    token = get_token_by_username(username=username)
+    if token is None:
+        return None
+    else:
+        return token
 
 
 def __generate_api_token(name: str, email: str, password: str):

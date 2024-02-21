@@ -8,7 +8,7 @@ BASE_URL = "/laplayerapi/v1"
 @app.route(f'{BASE_URL}/search', methods=['GET'])
 def get_links():
     if request.args.get("token") is None:
-        return "403"
+        return jsonify(None)
     else:
         return jsonify(
             explore(
@@ -20,12 +20,15 @@ def get_links():
 @app.route(f'{BASE_URL}/download', methods=['GET'])
 def download_music():
     if request.args.get("token") is None:
-        return "403"
+        return jsonify(None)
     else:
         mp3_path = download(
             link=request.args.get("link"), token=request.args.get("token")
         )
-        return send_file(mp3_path, mimetype='audio/mpeg')
+        if mp3_path is None:
+            return jsonify(None)
+        else:
+            return send_file(mp3_path, mimetype='audio/mpeg')
 
 
 if __name__ == "__main__":

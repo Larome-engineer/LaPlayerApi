@@ -22,9 +22,10 @@ explore_router = Router()
 async def explore(msg: Message):
     search_result = requests.get(f'{BASE_URL}/search?name={msg.text}&token={LP_API_TOKEN}')
     btn_list = []
-
+    for k, v in search_result.json().items():
+        print(f'{k} - {v}')
     for name, link in search_result.json().items():
-        btn_list.append(InlineKeyboardButton(text=name, callback_data=f"val_{link}"))
+        btn_list.append(InlineKeyboardButton(text=name, callback_data=f"val#{link}"))
     opt_builder = InlineKeyboardBuilder().row(*btn_list, width=1)
 
     await example_bot.send_message(
@@ -36,11 +37,12 @@ async def explore(msg: Message):
 
 @download_router.callback_query(F.data.startswith("val"))
 async def download(call: CallbackQuery):
-    call_data = call.data.split("_")[1]
+    call_data = call.data.split("#")[1]
     await example_bot.send_audio(
         chat_id=call.from_user.id,
         audio=URLInputFile(f"{BASE_URL}/download?link={call_data}&token={LP_API_TOKEN}")
     )
+    await call.answer()
 
 
 async def main():

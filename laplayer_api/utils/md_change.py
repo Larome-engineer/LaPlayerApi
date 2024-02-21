@@ -16,6 +16,8 @@ def md_changer(mp3_path, artist, title):
                     data=album_art.read()
                 )
             )
+            artist
+            title.replace('—', '-').replace('^', '*').replace('#', '|').replace('.', '?').replace("'", "/")
             music.tags.add(TPE1(encoding=3, text=artist))
             music.tags.add(TIT2(encoding=3, text=title))
             music.save()

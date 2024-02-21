@@ -1,5 +1,5 @@
+from laplayer_api.services.user_service import get_token
 from laplayer_api.utils.explorers import youtube_explorer
-from user_service import get_token
 
 
 def explore(request: str, token: str) -> dict | None:

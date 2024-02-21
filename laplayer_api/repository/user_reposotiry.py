@@ -9,3 +9,7 @@ def add_user(user: Users):
 
 def get_token(token: str):
     return db.session.query(Users).filter(Users.user_api_token == token).first()
+
+
+def get_token_by_username(username: str):
+    return db.session.query(Users.user_api_token).filter(Users.username == username).first()

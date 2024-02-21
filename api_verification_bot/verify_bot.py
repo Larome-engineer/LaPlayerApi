@@ -1,22 +1,18 @@
-from aiogram.filters import CommandStart
-from aiogram import Bot, Dispatcher, Router
-from aiogram.fsm.state import StatesGroup, State
-
-TOKEN = ""
-BASE_URL = ""
-
-verify_bot = Bot(TOKEN)
-dp = Dispatcher()
-
-verify = Router()
+import asyncio, logging, sys
+from verify_handler import verify
+from verify_bot_create import dp, verify_bot
 
 
-class User(StatesGroup):
-    username = State()
-    email = State()
-    pwd = State()
+async def main():
+    dp.include_router(
+        verify
+    )
+    await dp.start_polling(verify_bot)
 
 
-@verify.message(CommandStart())
-def start_verify():
-    pass
+if __name__ == "__main__":
+    try:
+        logging.basicConfig(level=logging.INFO, stream=sys.stdout)
+        asyncio.run(main())
+    except (KeyboardInterrupt, SystemExit):
+        print('Bot stopped!')
