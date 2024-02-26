@@ -1,7 +1,6 @@
 from laplayer_api.data.config import BASE_URL
-from laplayer_api.services.explore import explore
-from laplayer_api.services.download import download
 from laplayer_api import app, jsonify, request, send_file
+from laplayer_api.services.music_service import download, explore
 from laplayer_api.services.user_service import create_user, check_token, token_by_tg_id
 
 
@@ -27,13 +26,13 @@ def download_music():
         )
         if mp3_path is None:
             return jsonify(None)
-        else:
-            return send_file(mp3_path, mimetype='audio/mpeg')
+
+        return send_file(mp3_path, mimetype='audio/mpeg')
 
 
 @app.route(f'{BASE_URL}/register', methods=['POST'])
 def verify_user():
-    user_data = request.get_json()[0]
+    user_data = request.get_json()
     try:
         res = create_user(
             name=user_data["username"],
@@ -53,7 +52,7 @@ def token():
 
 @app.route(f'{BASE_URL}/getToken', methods=['GET'])
 def get_token():
-    return jsonify(token_by_tg_id(int(request.args.get("tg_id"))))
+    return jsonify(token_by_tg_id(request.args.get("tg_id")))
 
 
 if __name__ == "__main__":

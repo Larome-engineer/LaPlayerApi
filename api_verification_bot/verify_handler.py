@@ -32,16 +32,16 @@ async def opt_action(call: CallbackQuery, state: FSMContext):
     call_data = call.data.split("_")[1]
     if call_data == 'token':
         token = requests.get(f'{BASE_URL}/checkToken?tg_id={call.from_user.id}')
-        if token == 404:
+        if token.json() == "404":
             opt_builder = InlineKeyboardBuilder().row(
                 InlineKeyboardButton(text='Регистрация', callback_data='opt_reg'), width=1)
 
-            await call.answer(
+            await call.message.answer(
                 text='К сожалению, мы не смогли найти Вас в базе. Попробуйте зарегистрироваться',
                 reply_markup=opt_builder.as_markup()
             )
-        else:
-            await call.answer(
+        elif token.json() == "200":
+            await call.message.answer(
                 text=f'Ваш токен:\n<code>{token}</code>'
             )
 
@@ -65,13 +65,12 @@ async def registration(msg: Message, state: FSMContext):
         "tg_id": tg_id
     }
     register = requests.post(f"{BASE_URL}/register", json=user_data)
-    if register == 200:
-        token = requests.get(f"{BASE_URL}/getToken?tg_id={tg_id}")
-
+    if register.json() == "200":
+        token = requests.get(f"{BASE_URL}/getToken?tg_id={str(tg_id)}")
         await msg.answer(
-            text=f'{user_data[0]}, Вы успешно зарегистрированы!\n\nВаш токен:\n<code>{token}</code>'
+            text=f'{user_data_list[0]}, Вы успешно зарегистрированы!\n\nВаш токен:\n<code>{token.json()}</code>'
         )
-    elif register == 404:
+    elif register.json() == "404":
         await msg.answer(
             text=f'REGISTRATION FAILED!'
         )
