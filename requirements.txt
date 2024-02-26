@@ -35,6 +35,7 @@ psycopg2-binary==2.9.9
 pydantic==2.5.3
 pydantic_core==2.14.6
 pyngrok==7.1.2
+python-dotenv==1.0.1
 pytube==15.0.0
 PyYAML==6.0.1
 requests==2.31.0

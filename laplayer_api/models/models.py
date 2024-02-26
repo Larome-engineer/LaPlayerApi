@@ -2,7 +2,8 @@ from laplayer_api import db
 
 
 class Users(db.Model):
-    user_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    user_tg_id = db.Column(db.Integer, nullable=False, unique=True)
     username = db.Column(db.String(50), nullable=False, unique=True)
     user_email = db.Column(db.String(70), nullable=False, unique=True)
     user_password = db.Column(db.String(255), nullable=False)

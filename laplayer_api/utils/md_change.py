@@ -1,6 +1,6 @@
 from mutagen.id3 import ID3, APIC, TPE1, TIT2
 from mutagen.mp3 import MP3, HeaderNotFoundError
-from laplayer_api.data.variables import logo_path
+from laplayer_api.data.config import logo_path
 
 
 def md_changer(mp3_path, artist, title):
@@ -16,7 +16,6 @@ def md_changer(mp3_path, artist, title):
                     data=album_art.read()
                 )
             )
-            artist
             title.replace('—', '-').replace('^', '*').replace('#', '|').replace('.', '?').replace("'", "/")
             music.tags.add(TPE1(encoding=3, text=artist))
             music.tags.add(TIT2(encoding=3, text=title))
@@ -25,4 +24,3 @@ def md_changer(mp3_path, artist, title):
         print("SUCCESS ADDED METADATA")
     except HeaderNotFoundError as HNFE:
         print(HNFE)
-

@@ -6,10 +6,7 @@ import requests
 from aiogram import Bot, Dispatcher, Router, F
 from aiogram.types import Message, URLInputFile, CallbackQuery, InlineKeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-
-TOKEN = ''
-BASE_URL = ''
-LP_API_TOKEN = ''
+from config import LP_API_TOKEN, TOKEN, BASE_URL
 
 example_bot = Bot(TOKEN)
 dp = Dispatcher()

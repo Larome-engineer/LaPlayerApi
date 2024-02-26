@@ -1,7 +1,7 @@
 import validators
 from pytube import YouTube
 from pytube.exceptions import RegexMatchError
-from laplayer_api.data.variables import wav_root
+from laplayer_api.data.config import wav_root
 from laplayer_api.utils.is_valid import is_valid
 from laplayer_api.utils.filter import filter_name
 

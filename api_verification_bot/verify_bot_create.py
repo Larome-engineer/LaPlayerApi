@@ -1,5 +1,5 @@
 from aiogram import Bot, Dispatcher
-TOKEN = ""
+from config import BOT_TOKEN
 
-verify_bot = Bot(TOKEN, parse_mode='HTML')
+verify_bot = Bot(BOT_TOKEN, parse_mode='HTML')
 dp = Dispatcher()

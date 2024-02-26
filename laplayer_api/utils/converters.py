@@ -1,6 +1,6 @@
 import os
 from moviepy.editor import VideoFileClip
-from laplayer_api.data.variables import mp3_root, wav_root
+from laplayer_api.data.config import mp3_root, wav_root
 
 
 def wav_to_mp3(wav):
